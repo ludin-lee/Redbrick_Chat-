@@ -1,0 +1,138 @@
+@import "reset.css";
+
+#login-form{
+    display: flex;
+    height: 90vh;
+    align-items: center;
+    justify-content: center;
+    flex-direction: column;
+}
+#login-header{
+    margin-bottom: 20px;
+    font-size:30px;
+    font-weight: 800;
+    color:#C6084A;
+}
+#nickname-form{
+    height: 30px;
+    border: 2px solid rgba(0,0,0,0.5);
+    border-radius: 10px;
+    margin-right: 20px;
+    text-align: center;
+    font-size:15px;
+    transition: all 0.5s ease-in-out;
+}
+#nickname-form:focus{
+    border:3px solid #f81b72;
+}
+#login-btn-form{
+    width: 35px;
+    height: 35px;
+    border-radius: 10px;
+    cursor: pointer;
+    border: none;
+    padding:0;
+    background-color: rgba(0,0,0,0.5);
+    color:rgba(255,255,255,0.8);
+    transition: all 1s ease-in-out;
+}
+#login-btn-form:hover{
+    background-color: #C6084A;
+}
+#login-btn-form:active{
+    scale:90%;
+}
+
+/* 채팅 섹션 */
+#chat-form{  
+    display: none; 
+    height: 90vh;
+    align-items: center;
+    justify-content: center;
+    flex-direction: column;
+}
+#chat-header{
+    margin-bottom: 20px;
+    font-size:40px;
+    font-weight: 800;
+    color:#C6084A;
+    margin-top:20px;
+}
+#chat-box{
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    height: 80%;
+    border: 2px solid #f81b72;
+    border-radius: 10px;
+    margin-bottom: 20px;
+    padding:20px;
+}
+#chat-list{
+    height: 100%;  
+    width: 700px;
+    overflow-y: scroll;
+}
+#chat-list::-webkit-scrollbar {
+    width: 5px;
+}
+#chat-list:-webkit-scrollbar-thumb {
+    background-color: transparent;
+}
+#chat-list::-webkit-scrollbar-track {
+    background-color: transparent;
+}
+#chat-list:hover::-webkit-scrollbar-thumb{
+    background-color: rgba(0,0,0,0.3);
+    border-radius: 10px;
+}
+#chat-list li{
+    font-size:20px
+}
+
+#text-form{
+    height: 40px;
+    width: 600px;
+    border: 2px solid rgba(0,0,0,0.5);
+    border-radius: 10px;
+    margin-right: 20px;
+    text-align: center;
+    font-size:15px;
+    transition: all 0.5s ease-in-out;
+}
+#text-form:focus{
+    border:3px solid #f81b72;
+}
+#submit-form{
+    width: 40px;
+    height: 40px;
+    border-radius: 10px;
+    cursor: pointer;
+    border: none;
+    padding:0;
+    background-color: rgba(0,0,0,0.5);
+    color:rgba(255,255,255,0.8);
+    transition: all 0.2s ease-in-out;
+}
+#submit-form:hover{
+    background-color: #C6084A;
+}
+#submit-form:active{
+    scale:90%;
+}
+#logout-btn{
+    margin-top:20px;
+    border-radius: 10px;
+    background-color: rgba(0,0,0,0.5);
+    color:rgba(255,255,255,0.8);
+    transition: all 0.2s ease-in-out;
+}
+#logout-btn:hover{
+    background-color: #C6084A;
+}
+#logout-btn:active{
+    scale: 90%;
+}
+#logout-btn >i{
+    margin : 10px;
+}
