@@ -1,8 +1,7 @@
-const {server} =require('./socket')
-const express =  require('express');
-const app=express();
+import { server } from "./socket.js";
+import express from "express";
+const app = express();
 
-app.use('/',express.static('statics'))
+app.use("/", express.static("statics"));
 
-
-module.exports=app;
+export default app;
