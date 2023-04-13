@@ -3,6 +3,7 @@
   "version": "1.0.0",
   "description": "레드브릭 익명 채팅",
   "license": "Ludin",
+  "type": "module",
   "scripts": {
     "dev": "nodemon"
   },
@@ -15,7 +16,9 @@
   },
   "dependencies": {
     "@socket.io/admin-ui": "^0.2.0",
+    "dotenv": "^16.0.3",
     "express": "^4.18.2",
+    "fs": "^0.0.1-security",
     "localtunnel": "^2.0.1",
     "pug": "^3.0.2",
     "socket.io": "^4.6.1",
