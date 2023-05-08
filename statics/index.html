@@ -1,39 +1,59 @@
 <!DOCTYPE html>
 <html lang="en">
-<head>
-    <meta charset="UTF-8">
-    <meta http-equiv="X-UA-Compatible" content="IE=edge">
-    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <head>
+    <meta charset="UTF-8" />
+    <meta http-equiv="X-UA-Compatible" content="IE=edge" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
     <link rel="stylesheet" href="css/style.css" />
     <title>RedBrick 익명 채팅</title>
-</head>
-<body>
+  </head>
+  <body>
     <!-- 로그인 섹션 -->
     <section id="login-form">
-        <h1 id="login-header">Red Brick World</h1>
-        <form id="login-submit-form">
-            <input id="nickname-form"type="text" placeholder="nickName" >
-            <input id="login-btn-form" type="submit" value="Go" class="btn_basic" id="login_button">
-        </form>
+      <h1 id="login-header">Red Brick Anonymous World</h1>
+      <form id="login-submit-form">
+        <input
+          id="nickname-form"
+          maxlength="10"
+          type="text"
+          placeholder="nickName"
+        />
+        <input
+          id="login-btn-form"
+          type="submit"
+          value="Go"
+          class="btn_basic"
+          id="login_button"
+        />
+      </form>
     </section>
     <!-- 채팅 섹션 -->
     <section id="chat-form">
-        <h1 id="chat-header">Red Brick World</h1>
-        <div id="chat-box"> 
-            <ul id="chat-list">
-            </ul>
+      <div id="main-frame">
+        <h1 id="chat-header">Red Brick Anonymous World</h1>
+        <div id="chat-box">
+          <ul id="chat-list"></ul>
         </div>
-        <form id ="chat-input">
-            <input id="text-form" type="text" placeholder="message" required>
-            <input id="submit-form" type="submit" value="전송">
+        <form id="chat-input">
+          <input id="text-form" type="text" placeholder="message" required />
+          <input id="submit-form" type="submit" value="Submit" />
         </form>
-        <div id="logout-btn"> <i class="fa-solid fa-right-from-bracket"></i></div>
+        <div id="logout-btn">
+          <i class="fa-solid fa-right-from-bracket"></i>
+        </div>
+      </div>
+      <div id="side-bar-right">
+        <div id="online-box">
+          <h2 id="online-banner">Online</h2>
+          <ul id="online-list"></ul>
+        </div>
+      </div>
     </section>
     <script
-    src="https://kit.fontawesome.com/dc0708434c.js"
-    crossorigin="anonymous"
-  ></script>
-  <script src="/socket.io/socket.io.js"></script>
-    <script src ="./js/login.js"> </script>
-    </body>
+      src="https://kit.fontawesome.com/dc0708434c.js"
+      crossorigin="anonymous"
+    ></script>
+    <script src="/socket.io/socket.io.js"></script>
+    <script src="./js/index.js"></script>
+  </body>
 </html>

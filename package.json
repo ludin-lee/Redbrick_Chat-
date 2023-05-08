@@ -21,6 +21,7 @@
     "fs": "^0.0.1-security",
     "localtunnel": "^2.0.1",
     "pug": "^3.0.2",
+    "redis": "^4.6.5",
     "socket.io": "^4.6.1",
     "ws": "^7.5.3"
   }
