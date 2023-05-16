@@ -1,7 +1,10 @@
 @import "reset.css";
+@import url('https://fonts.googleapis.com/css2?family=Noto+Sans+KR&display=swap');
 
 body{
     transition: all 0.5s ease-in-out;
+    font-family: 'Noto Sans KR', sans-serif;
+
 }
 
 #login-form{

@@ -1,6 +1,6 @@
-import { server } from "./socket.js";
-import * as dotenv from "dotenv"
-dotenv.config()
+import server from "./socket.js";
+import * as dotenv from "dotenv";
+dotenv.config();
 
 if (process.env.NODE_ENV == "production" && process.env.HTTPSPORT) {
   const HTTPSPORT = process.env.HTTPSPORT;

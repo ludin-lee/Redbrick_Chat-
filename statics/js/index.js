@@ -9,7 +9,7 @@ const chatInput = document.querySelector("#chat-input");
 const chatlist = document.querySelector("#chat-list");
 const onlineList = document.querySelector("#online-list");
 //const socket = io();
-const socket = io("127.0.0.1:3000");
+const socket = io("192.168.0.57:3000");
 
 /* section */
 function sectionOne() {
@@ -20,10 +20,14 @@ function sectionTwo(nickName) {
   loginForm.style.display = "none";
   chatForm.style.display = "flex";
   localStorage.setItem("nickname", nickName);
-  socket.emit("enter_room", nickName, () => {
+  socket.emit("online", nickName, (data) => {
+    online(data);
+  });
+  socket.emit("enter_room", nickName, (data) => {
     addMessage("채팅방에 입장하셨습니다.");
     addMessage("명령어보기: /? ");
     addMessage("----------------------------------------");
+    online(data);
   });
 }
 /* 명령어 */
@@ -44,18 +48,24 @@ function changeNickname(target) {
   } else {
     const originalNickname = localStorage.getItem("nickname");
     const notice = `${originalNickname}님이 ${target}으로 닉네임을 변경하셨습니다.`;
-    socket.emit("change_Nickname", { nickname: target, notice }, () => {
-      localStorage.removeItem("nickname");
-      localStorage.setItem("nickname", target);
-      addMessage(notice);
-    });
+    socket.emit(
+      "change_nickname",
+      { nickname: target, notice, originalNickname },
+      (data) => {
+        localStorage.removeItem("nickname");
+        localStorage.setItem("nickname", target);
+        addMessage(notice);
+        online(data);
+      }
+    );
   }
 }
 
 /* 채팅 관련 */
 function command(commandLine, target) {
-  if (commandLine === "/닉네임변경") changeNickname(target);
-  else if (commandLine === "/모드") displayMode(target);
+  if (commandLine === "/닉네임변경") {
+    changeNickname(target);
+  } else if (commandLine === "/모드") displayMode(target);
   else if (commandLine === "/?") {
     const notice1 = "닉네임 변경: /닉네임변경 바꿀닉네임";
     const notice2 = "화면모드 변경: /모드 다크or화이트";
@@ -93,6 +103,18 @@ function chatting(event) {
 
     text.value = "";
   }
+}
+
+/* 온라인 유저 체크 */
+function online(users) {
+  onlineList.replaceChildren();
+  console.log(users);
+  for (i in users) {
+    const li = document.createElement("li");
+    li.innerText = users[i];
+    onlineList.appendChild(li);
+  }
+  onlineList.scrollTop = chatlist.scrollHeight;
 }
 
 /* 로그 인앤아웃 */
@@ -136,4 +158,21 @@ socket.on("new_message", (data) => {
   addMessage(data);
 });
 
-socket.on("online_update", (data) => {});
+socket.on("online", (data) => {
+  online(data);
+});
+
+// // /* SSE관련 */
+// const eventSource = new EventSource("http://127.0.0.1:3000/sse?id=123"); // sse코드가 있는 서버단 파일
+
+// eventSource.onmessage = function (event) {
+//   const eventData = event.data; // 이벤트 데이터
+//   // 이벤트 처리 로직 추가
+//   console.log(eventData);
+// };
+// function test() {
+//   eventSource.close();
+//   console.log("close");
+// }
+
+// setTimeout(test, 5000);
