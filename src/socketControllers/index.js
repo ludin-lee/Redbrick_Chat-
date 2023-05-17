@@ -3,13 +3,11 @@ const roomName = process.env.ROOMNAME;
 
 const cache = new Cache();
 const redisCache = await cache.CacheBuilder();
-const subRedisCache = await cache.CacheBuilder();
 
 class SocketController {
   constructor(socket) {
     this.socket = socket;
     this.redisCache = redisCache;
-    this.subRedisCache = subRedisCache;
   }
 
   enterRoom = async (data, done) => {
@@ -61,6 +59,7 @@ class SocketController {
   };
 
   // online = async () => {
+  // const subRedisCache = await cache.CacheBuilder();
   //   await subRedisCache.subscribe("online", (message) => {
   //     this.socket.to(roomName).emit("online", message);
   //   });
