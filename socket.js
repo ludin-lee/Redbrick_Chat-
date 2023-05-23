@@ -5,8 +5,8 @@ import https from "https";
 import { Server } from "socket.io";
 import { createAdapter } from "@socket.io/redis-adapter";
 import Cache from "./conn.js";
-import SocketController from "./src/socketControllers/index.js";
-import SSE from "sse";
+import SocketController from "./src/controllers/socketControllers/index.js";
+// import SSE from "sse";
 
 /*Server Secure Setting*/
 let server = "";
@@ -30,7 +30,7 @@ if (process.env.NODE_ENV == "prod" && process.env.HTTPSPORT) {
 } else {
   server = http.createServer(app);
 }
-const sse = new SSE(server);
+// const sse = new SSE(server);
 
 // app.get("/sse", () => {});
 

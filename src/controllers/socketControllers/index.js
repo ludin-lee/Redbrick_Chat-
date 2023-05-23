@@ -1,4 +1,4 @@
-import Cache from "../../conn.js";
+import Cache from "../../../conn.js";
 const roomName = process.env.ROOMNAME;
 
 const cache = new Cache();
@@ -23,12 +23,12 @@ class SocketController {
     const onlineUsers = await this.redisCache.sMembers("onlineNickname");
     this.socket.to(roomName).emit("online", onlineUsers);
     this.socket.to(roomName).emit("welcome", data);
-    done(onlineUsers);
+    if (done) done(onlineUsers);
   };
 
   newMessage = async (data, done) => {
     this.socket.to(roomName).emit("new_message", data);
-    done();
+    if (done) done();
   };
 
   changeNickname = async (data, done) => {
