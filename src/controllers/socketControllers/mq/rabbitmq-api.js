@@ -1,6 +1,6 @@
 import Rabbitmq from "./rabbitmq.js";
 const url = "amqp://127.0.0.1"; //rabbitmq url
-const queue = "web_msg"; //임시 queue이름이고 필요한 상황에 맞게 이름 따로 지정해줘야 한다.
+const queue = "newMessage"; //임시 queue이름이고 필요한 상황에 맞게 이름 따로 지정해줘야 한다.
 
 class RabbitMqApi {
   send_message = async (req, res) => {

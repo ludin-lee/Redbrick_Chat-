@@ -9,7 +9,7 @@ const chatInput = document.querySelector("#chat-input");
 const chatlist = document.querySelector("#chat-list");
 const onlineList = document.querySelector("#online-list");
 //const socket = io();
-const socket = io("192.168.0.57:3000");
+const socket = io("192.168.0.57:3000/redbrick-game");
 
 /* section */
 function sectionOne() {
@@ -108,7 +108,6 @@ function chatting(event) {
 /* 온라인 유저 체크 */
 function online(users) {
   onlineList.replaceChildren();
-  console.log(users);
   for (i in users) {
     const li = document.createElement("li");
     li.innerText = users[i];

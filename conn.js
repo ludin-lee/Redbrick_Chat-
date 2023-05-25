@@ -1,25 +1,24 @@
 import redis from "redis";
 
-class Cache {
-  CacheBuilder = async () => {
-    try {
-      let RedisCache = redis.createClient({ url: `redis://127.0.0.1:6379` });
-      RedisCache.on("error", (err) => {
-        console.error("Redis Client has some error", err);
-      });
+let redisCache;
 
-      RedisCache.on("ready", () => {
-        console.log("Redis Client is Ready" + " - RW");
-      });
+async function redisClientBuilder() {
+  try {
+    redisCache = redis.createClient({ url: process.env.REDIS_URL });
+    redisCache.on("error", (err) => {
+      console.error("Redis Client has some error", err);
+    });
 
-      await RedisCache.connect();
+    redisCache.on("ready", () => {
+      console.log("Redis Client is Ready" + " - RW");
+    });
 
-      return RedisCache;
-    } catch (err) {
-      console.log(err);
-      new Error("Redis Server Error!");
-    }
-  };
+    await redisCache.connect();
+  } catch (e) {
+    console.error(e);
+    await redisCache.disconnect();
+  }
 }
+redisClientBuilder();
 
-export default Cache;
+export default redisCache;

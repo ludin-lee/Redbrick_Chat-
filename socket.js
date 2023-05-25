@@ -4,8 +4,9 @@ import http from "http";
 import https from "https";
 import { Server } from "socket.io";
 import { createAdapter } from "@socket.io/redis-adapter";
-import Cache from "./conn.js";
+import redisCache from "./conn.js";
 import SocketController from "./src/controllers/socketControllers/index.js";
+import RabbitmqWrapper from "./src/controllers/socketControllers/mq/rabbitmq.js";
 // import SSE from "sse";
 
 /*Server Secure Setting*/
@@ -30,36 +31,23 @@ if (process.env.NODE_ENV == "prod" && process.env.HTTPSPORT) {
 } else {
   server = http.createServer(app);
 }
-// const sse = new SSE(server);
 
-// app.get("/sse", () => {});
-
-// sse.on("connection", (client) => {
-//   setInterval(() => {
-//     // 1초마다 클라이언트에 데이터 전송
-//     client.send(Date.now().toString()); // 문자열만 보낼 수 있음
-//   }, 1000);
-//   console.log(client);
-
-//   client.on("close", () => {
-//     console.log("close");
-//   });
-// });
-
-const cache = new Cache();
-const RedisCache = await cache.CacheBuilder();
 const io = new Server(server);
-const adapter = createAdapter(RedisCache, RedisCache.duplicate());
+const adapter = createAdapter(redisCache, redisCache.duplicate());
 io.adapter(adapter);
+
 const mylee = io.of("/redbrick-game"); //nameSpace Test용
 
-io.on("connection", (socket) => {
+mylee.on("connection", (socket) => {
   const socketController = new SocketController(socket);
+
   socket.on("enter_room", socketController.enterRoom);
   socket.on("new_message", socketController.newMessage);
   socket.on("disconnect", socketController.disconnect);
   socket.on("change_nickname", socketController.changeNickname);
-  // socket.on("online", socketController.online);
 });
+
+const test = new RabbitmqWrapper(process.env.LOCAL_HOST, "newMessage");
+test.subscribeToQueue(mylee);
 
 export default server;

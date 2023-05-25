@@ -69,6 +69,41 @@ class RabbitmqWrapper {
     await this.setup();
     return await this.recvFromQueue();
   }
+
+  //구독
+  async subscribeToQueue(io) {
+    try {
+      // RabbitMQ 연결 생성
+      const connection = await amqp.connect(this._url); // RabbitMQ 서버 주소에 맞게 변경하세요
+
+      // 채널 생성
+      const channel = await connection.createChannel();
+
+      // 큐 선언
+      await channel.assertQueue(this._queueName, { durable: false });
+
+      console.log(
+        `[*] 큐 '${this._queueName}' 구독을 시작합니다. 종료하려면 Ctrl+C를 누르세요.`
+      );
+
+      // 메시지 수신 및 처리
+      channel.consume(
+        this._queueName,
+        (msg) => {
+          console.log(`[x] 메시지 받음: ${msg.content.toString()}`);
+
+          let result = msg.content
+            .toString()
+            .substring(1, msg.content.toString().length - 1);
+
+          io.to("redbrick").emit("new_message", result);
+        },
+        { noAck: true }
+      );
+    } catch (error) {
+      console.error("오류:", error);
+    }
+  }
 }
 
 export default RabbitmqWrapper;
